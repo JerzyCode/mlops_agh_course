@@ -1,0 +1,21 @@
+[project]
+name = "mlops-lab1"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.118.2",
+    "numpy>=2.3.3",
+    "pydantic-settings>=2.11.0",
+    "python-dotenv>=1.1.1",
+    "pyyaml>=6.0.3",
+    "scikit-learn>=1.7.2",
+    "uvicorn>=0.37.0",
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit>=4.3.0",
+    "pytest>=8.4.2",
+]
