@@ -2,4 +2,7 @@
 
 data
 
+milvus_db
+vectorscale_db
+
 __pycache__
