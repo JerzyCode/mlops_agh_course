@@ -1,0 +1,32 @@
+[project]
+name = "MLOps_course_AGH_lab_06"
+version = "1.0.0"
+description = ""
+readme = "README.md"
+
+requires-python = "==3.11.*"
+
+dependencies = [
+    "captum",
+    "cleanlab",
+    "datasets",
+    "giskard",
+    "jupyter",
+    "matplotlib",
+    "pandas",
+    "ruff",
+    "scikit-learn",
+    "sentence-transformers",
+    "transformers[torch]",
+]
+
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu" },
+]
+
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
