@@ -7,3 +7,6 @@ milvus_db
 vectorscale_db
 
 __pycache__
+
+lab6/mlruns
+lab6/finetuned_model
