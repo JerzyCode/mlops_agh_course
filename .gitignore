@@ -9,4 +9,6 @@ vectorscale_db
 __pycache__
 
 lab6/mlruns
+homework6/mlruns
 lab6/finetuned_model
+homework6/finetuned_model
