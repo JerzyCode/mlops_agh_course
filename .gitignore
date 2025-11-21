@@ -13,3 +13,4 @@ homework6/mlruns
 lab6/finetuned_model
 homework6/finetuned_model
 lab7/models
+model_quantized.pt
