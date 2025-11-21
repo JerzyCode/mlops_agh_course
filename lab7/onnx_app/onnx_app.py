@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 from transformers import AutoTokenizer
 
+import os
 import onnxruntime as ort
 import numpy as np
 
@@ -12,9 +13,7 @@ app = FastAPI()
 NON_OPT_MODEL_PATH = "non_opt_model.onnx"
 
 sess_options = ort.SessionOptions()
-sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_EXTENDED
-sess_options.intra_op_num_threads = 1
-sess_options.inter_op_num_threads = 2
+sess_options.graph_optimization_level = ort.GraphOptimizationLevel.ORT_ENABLE_ALL
 sess_options.enable_cpu_mem_arena = True
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 
