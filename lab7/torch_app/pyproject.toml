@@ -5,11 +5,13 @@ readme = "README.md"
 requires-python = ">=3.11"
 
 dependencies = [
-    "onnxruntime",
-    "torch==2.9.1",
+    "torch==2.7.0",
     "pydantic",
-    "transformers",
-    "fastapi",
+    "fastapi>=0.118.2",
+    "uvicorn>=0.37.0",
+    "torch>=2.7.0",
+    "transformers>=4.57.0",
+    "setuptools>=65.5.1",
 ]
 
 [tool.uv.sources]

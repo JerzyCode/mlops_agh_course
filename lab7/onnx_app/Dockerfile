@@ -6,6 +6,7 @@ WORKDIR /app
 RUN apt-get update && apt-get install -y \
     curl libsnappy-dev make gcc g++ libc6-dev libffi-dev \
     && rm -rf /var/lib/apt/lists/*
+
 RUN curl -LsSf https://astral.sh/uv/install.sh | sh
 
 COPY pyproject.toml ./
@@ -19,15 +20,14 @@ FROM python:3.12-slim
 
 WORKDIR /app
 
-RUN apt-get update && apt-get install -y build-essential
-
 ENV PATH="/root/.local/bin:${PATH}"
 
 COPY --from=build-env /root/.local /root/.local
 COPY --from=build-env /app/.venv /app/.venv
+COPY non_opt_model.onnx ./non_opt_model.onnx
 
-COPY torch_app.py ./torch_app.py
+COPY onnx_app.py ./onnx_app.py
 
 EXPOSE 8000
 
-CMD ["uv", "run", "torch_app.py"]
+CMD ["uv", "run", "onnx_app.py"]
