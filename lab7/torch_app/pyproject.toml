@@ -9,7 +9,7 @@ dependencies = [
     "torch==2.9.1",
     "pydantic",
     "transformers",
-    "fastapi"
+    "fastapi",
 ]
 
 [tool.uv.sources]
