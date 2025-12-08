@@ -139,3 +139,237 @@ Screen from api call:
 
 ## 3. Elastic Container Registry (ECR) & Docker management
 
+### 3.1 Creating ECR 
+
+![Creating ECR](creating_ecr.png)
+
+### 3.2: Authenticate your Docker client to ECR
+
+
+Command:
+
+```bash
+aws ecr get-login-password --region <region> | docker login
+--username AWS --password-stdin
+<aws_account_id>.dkr.ecr.<region>.amazonaws.com
+```
+
+Results:
+
+```bash
+WARNING! Your credentials are stored unencrypted in '/home/jerzy-boksa/.docker/config.json'.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/go/credential-store/
+
+Login Succeeded
+```
+
+### 3.3: Build and push a Docker image to ECR
+
+
+Command 1: `docker build -t mlops_lab .`
+
+Command 2: `docker tag mlops_lab:latest 058264243952.dkr.ecr.us-east-1.amazonaws.com/mlops_lab:latest`
+
+Command 3: `docker push 058264243952.dkr.ecr.us-east-1.amazonaws.com/mlops_lab:latest`
+
+Result:
+
+![Docker image](docker_imge.png)
+
+**Question**: Why 3 images, if I only pushed once?
+
+## 4. Virtual Private Cloud (VPC) configuration
+
+
+### 4.1 Create a new VPC
+
+
+Clicked some buttons and has done it easily. 
+
+![Created VPC](vpc_created.png)
+
+As it was mentioned, there are 2 VPC, one was default.
+
+### 4.2 Create public and private subnets
+
+Created public subnets:
+
+![Public subnets](public_subnets.png)
+
+
+Created private subnets:
+
+![Private subnets](private_subnets.png)
+
+### 4.3 Set up an Internet Gateway
+
+Created IGW:
+
+![Created IGW](igw_created.png)
+
+
+### 4.4 Configure route tables
+
+
+Public route table:
+
+![Public Route Table](public_route_table.png)
+
+Private route table:
+
+![Private Route Table](private_route_table.png)
+
+### 4.5 Set up a NAT Gateway
+
+
+Created NAT Gateway:
+
+![Created NAT Gateway](created_nat_gateway.png)
+
+Updated private rute table:
+
+![Update Private Route Table](update_private_route_table.png)
+
+
+### 4.6 Security Groups
+
+Created security group for ALB
+
+![Security Group](security_group.png)
+
+### 4.7 Set up an Application Load Balancer (ALB)
+
+
+**4.7.1 Target Group**
+
+Created Target Group:
+
+![Created Target Group](created_target_group.png)
+
+**4.7.2 Create the ALB**
+
+Created Load Balancer:
+
+![Created Load Balancer](created_load_balancer.png)
+
+
+## 5. AWS Fargate deployment & CloudWatch configuration
+
+
+### 5.1 Create an ECS Cluster
+
+Created Cluster:
+
+![Created Cluster](created_cluster.png)
+
+
+### 5.2 Create a Task Definition
+
+Created Task Definition:
+
+![Created Task Definition](created_task_definition.png)
+
+
+### 5.3 Create a Service
+
+Created service:
+
+![Created Service](created_service.png)
+
+
+### 5.4 Running the service
+
+Both instances are running:
+
+![Running Instances](running_instances.png)
+
+### 5.5 Access the application
+
+Load balancer view:
+
+![Running Load Balancer](load_balancer_running.png)
+
+
+DNS: mlops-lab-alb-1226201309.us-east-1.elb.amazonaws.com
+
+Health endpoint:
+
+![Health](health_shot.png)
+
+
+Application is running. Let's check model!
+
+![Model Running](model_running.png)
+
+## 6. Application testing and monitoring
+
+
+### 6.1 Test the application
+
+
+Test script:
+
+```python
+import json
+
+import requests
+
+BASE_URL = "http://mlops-lab-alb-1226201309.us-east-1.elb.amazonaws.com"
+
+
+def test_health_endpoint():
+    print("\n=== Testing Health Endpoint ===")
+    response = requests.get(f"{BASE_URL}/health")
+
+    print(f"Status Code: {response.status_code}")
+    print(f"Response: {response.json()}")
+
+    assert response.status_code == 200, "Health endpoint should return 200"
+    assert "status" in response.json(), "Response should contain 'status' field"
+
+
+def test_predict_endpoint():
+    print("\n=== Testing Predict Endpoint ===")
+
+    test_data = {"text": "Amazing!"}
+
+    response = requests.post(f"{BASE_URL}/predict", json=test_data)
+
+    print(f"Status Code: {response.status_code}")
+    print(f"Request Data: {json.dumps(test_data, indent=2)}")
+    print(f"Response: {response.json()}")
+
+    assert response.status_code == 200, "Predict endpoint should return 200"
+    result = response.json()
+    assert "prediction" in result, "Response should contain 'prediction' field"
+
+
+def run_all_tests():
+    test_health_endpoint()
+    test_predict_endpoint()
+
+
+if __name__ == "__main__":
+    run_all_tests()
+```
+
+
+Test results:
+
+```bash
+=== Testing Health Endpoint ===
+Status Code: 200
+Response: {'status': 'Running!'}
+
+=== Testing Predict Endpoint ===
+Status Code: 200
+Request Data: {
+  "text": "Amazing!"
+}
+Response: {'prediction': 'positive'}
+```
+
+CloudWatch Logs:
+
+![CloudWatch Logs](logs.png)
