@@ -373,3 +373,10 @@ Response: {'prediction': 'positive'}
 CloudWatch Logs:
 
 ![CloudWatch Logs](logs.png)
+
+
+To not generate costs, desired task count for service is reduced to 0. So services currently are disabled. 
+
+
+To enable it:
+ECS -> Clusters -> Service -> Update Service
