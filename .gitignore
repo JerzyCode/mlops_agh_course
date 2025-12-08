@@ -15,3 +15,5 @@ homework6/finetuned_model
 lab7/models
 model_quantized.pt
 lab7/onnx_app/non_opt_model.onnx
+
+lab9/models
