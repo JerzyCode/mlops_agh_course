@@ -1,5 +1,5 @@
 [project]
-name = "MLOps_course_AGH_lab_02"
+name = "MLOps_course_AGH_lab_12"
 version = "1.0.0"
 description = ""
 readme = "README.md"
@@ -7,15 +7,16 @@ readme = "README.md"
 requires-python = "==3.11.*"
 
 dependencies = [
-    "apache-airflow[celery,pandas,standard,uv]==3.1.5",
-    "cloudpickle",
-    "pandas",
-    "pyarrow>=22.0.0",
-    "requests",
+    "apache-airflow[celery,postgres,standard,uv]==3.1.5",
     "twelvedata",
 ]
 
 [dependency-groups]
 dev = [
     "ruff"
+]
+
+airflow_common = [
+    "apache-airflow[celery,postgres,standard,uv]==3.1.5",
+    "requests",
 ]

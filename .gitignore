@@ -21,3 +21,6 @@ lab9/models
 data
 
 airflow
+
+logs
+.env
