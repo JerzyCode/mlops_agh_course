@@ -8,6 +8,8 @@ requires-python = "==3.11.*"
 
 dependencies = [
     "apache-airflow[celery,postgres,standard,uv]==3.1.5",
+    "apache-airflow-providers-amazon[s3fs]",
+    "s3fs",
     "twelvedata",
 ]
 

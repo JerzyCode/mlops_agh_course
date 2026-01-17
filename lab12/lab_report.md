@@ -48,7 +48,7 @@ After multiple tries, I was managed to run it fully with all libraries.
 
 ![alt text](imgs/exercise4.png)
 
-The main problem was with permissions with uv `$CACHE_DIR`. To solve it I found 2 solutions:
+**There was a problem** was with permissions with uv `$CACHE_DIR`. To solve it I found 2 solutions:
 
 1. os.environ["UV_CACHE_DIR"] = "/tmp/uv-cache-airflow"
 2. os.environ["UV_NO_CACHE"] = "1"
@@ -83,4 +83,51 @@ File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/standa
 
 File "/home/airflow/.local/lib/python3.11/site-packages/airflow/providers/standard/utils/python_virtualenv.py", line 165 in _execute_in_subprocess
 
+```
+
+
+### Adding localstack
+
+Successfully added a localstack with valid configuration to docker:
+
+```bash
+jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/lab12$ aws --endpoint-url=http://localhost:4566 s3 ls
+2026-01-17 09:55:19 airflow-xcom
+
+```
+
+### Running dag with localstack
+
+Again after some fixes (url for s3 etc.) I was manage to run dag sucesfully.
+
+Here are files on the s3:
+
+```bash
+jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/lab12$ aws --endpoint-url=http://localhost:4566 s3 ls s3://airflow-xcom --recursive
+2026-01-17 10:29:30     225537 xcom/weather_data_classes_api/manual__2026-01-17T09:29:18+00:00/get_data f1271ce7-3f70-4b64-a47e-2646f395ec97
+2026-01-17 10:29:35     132244 xcom/weather_data_classes_api/manual__2026-01-17T09:29:18+00:00/transform/a46d0138-3bd1-4cd9-867a-4b7881da83a2
+```
+
+
+### Exercise 4
+
+1) Made changes in `01-create-buckets.sh`
+2) Rerun docker
+3) Bucket list
+
+```bash
+jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/lab12$ aws --endpoint-url=http://localhost:4566 s3 ls
+2026-01-17 10:34:23 airflow-xcom
+2026-01-17 10:34:26 weather-data
+```
+
+4) Created dag
+
+![Created Dag](imgs/exercise4_dag.png)
+
+5) After run there is file in s3 bucket:
+
+```bash
+jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/lab12$ aws --endpoint-url=http://localhost:4566 s3 ls s3://weather-data --recursive
+2026-01-17 10:39:28     190487 processed/weather_new_york_2025.csv
 ```
