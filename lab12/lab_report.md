@@ -131,3 +131,16 @@ jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_cou
 jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/lab12$ aws --endpoint-url=http://localhost:4566 s3 ls s3://weather-data --recursive
 2026-01-17 10:39:28     190487 processed/weather_new_york_2025.csv
 ```
+
+
+### Exercise 5
+
+SQL and .env scripts were created.
+
+**Added connection:**
+
+![Added connevtion](imgs/added_connection.png)
+
+After multiple fixes, managed to run dag successfully:
+
+![Exercise 5](igs/exercise5.png)

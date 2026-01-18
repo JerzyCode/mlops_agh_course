@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS exchange_rates(
+    symbol VARCHAR(20) PRIMARY KEY,
+    rate FLOAT NOT NULL
+)
