@@ -38,7 +38,7 @@ x-airflow-common: &airflow-common
     # URL-encoded fake AWS connection, we must set endpoint_url for LocalStack
     AIRFLOW_CONN_AWS_DEFAULT: ${AIRFLOW_CONN_AWS_DEFAULT}
 
-    _PIP_ADDITIONAL_REQUIREMENTS: "apache-airflow-providers-amazon[s3fs] s3fs twelvedata requests"
+    _PIP_ADDITIONAL_REQUIREMENTS: "apache-airflow-providers-amazon[s3fs] s3fs twelvedata requests polars scikit-learn pandas numpy"
     AIRFLOW_VAR_TWELVEDATA_API_KEY: ${AIRFLOW_VAR_TWELVEDATA_API_KEY}
 
     AWS_ENDPOINT_URL: "http://localstack:4566"

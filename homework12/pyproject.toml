@@ -11,6 +11,7 @@ dependencies = [
     "apache-airflow-providers-amazon[s3fs]",
     "s3fs",
     "twelvedata",
+    "polars>=1.37.1",
 ]
 
 [dependency-groups]
