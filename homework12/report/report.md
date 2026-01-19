@@ -2,11 +2,11 @@
 
 ## 1. Setup new airflow
 
-## 2. Running Dag
+## 2. Running First Dag
 
 ![alt text](first_dag.png)
 
-Check if saved files exists:
+### Check if saved files exists
 
 ```bash
 jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/homework12$ aws --endpoint-url=http://localhost:4566 s3 ls s3://tariff-distances --recursive
@@ -57,3 +57,51 @@ jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_cou
 2026-01-19 14:34:52   75267589 raw/yellow_tripdata_2025-10.parquet
 2026-01-19 14:34:55   71134255 raw/yellow_tripdata_2025-11.parquet
 ```
+
+## 3. Running second dag
+
+The task is to predict the `total_amount` value.
+
+### Created dag
+
+
+### First run
+
+It failed because I forgot to add connection
+
+![alt text](first_run.png)
+
+
+### n-th run
+
+After many fixes with different things such as pg connection, paths for s3 etc I was able to run it successful.
+
+**run dag**
+
+![alt text](train_dag_run.png)
+
+
+**saved data in s3**
+
+Other files are listed above.
+
+```bash
+jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/homework12$ aws --endpoint-url=http://localhost:4566 s3 ls s3://tariff-distances/ml --recursive
+2026-01-19 17:36:10        616 ml/best_model.joblib
+2026-01-19 17:35:52       2466 ml/test_data.joblib
+2026-01-19 17:35:52      48546 ml/train_data.joblib
+```
+
+
+**saved data in postgres**
+
+```bash
+jerzy-boksa@jerzyb-laptop:~/Programming/Projects/university/term_3/mlops_agh_course/homework12$ docker compose exec postgres2 psql -U airflow -d airflow -c "SELECT * FROM model_performance;"
+ training_date |    model_name    | training_set_size |         mae         
+---------------+------------------+-------------------+---------------------
+ 2026-01-19    | Ridge Regression |               670 | 0.18158500008632797
+ 2026-01-19    | Random Forest    |               670 | 0.22536844836644576
+ 2026-01-19    | SVM              |               670 |  0.6127421150053934
+(3 rows)
+```
+
