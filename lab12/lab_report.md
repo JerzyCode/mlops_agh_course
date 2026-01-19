@@ -143,4 +143,4 @@ SQL and .env scripts were created.
 
 After multiple fixes, managed to run dag successfully:
 
-![Exercise 5](igs/exercise5.png)
+![Exercise 5](imgs/exercise5.png)
