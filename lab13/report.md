@@ -263,7 +263,7 @@ Let me know if you need more details about any of these columns!
 
 ## Model Context Protocol
 
-### Exercise 3
+## Exercise 3
 
 Implemented in `exercise3/mcp_server.py` and added `host_server.py`
 
@@ -322,3 +322,19 @@ Note that for that task I had to use larger model (14B), because smaller tried t
 However bigger model was able to do it. Plot below.
 
 ![Plot Q2](exercise4/bigger_model.png)
+
+
+### Guardrails_ai
+
+I'm not sure if it works, because for question `How can I get weeds out of my garbage bag after cutting my lawn?` I receive response:
+
+```
+Response:
+ Sorry, I cannot help you with that, reason: Expecting value: line 1 column 1 (char 0)
+```
+
+which is bad because it is a question about cutting lawn more that illegal weed.
+
+## Exercise 5
+
+Code is in the `exercise5` directory. It is overall tough question.
