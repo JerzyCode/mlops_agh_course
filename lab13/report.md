@@ -260,3 +260,65 @@ Response:
 
 Let me know if you need more details about any of these columns!
 ```
+
+## Model Context Protocol
+
+### Exercise 3
+
+Implemented in `exercise3/mcp_server.py` and added `host_server.py`
+
+
+Logs:
+```bash
+Executing tool 'get_current_date'
+Executing tool 'get_current_datetime'
+Executing tool 'get_weather_forecast'
+Response:
+ The weather in Birmingham, United Kingdom, on February 14, 2026, is expected to be fog and rain.
+
+Response:
+ First, I will get the current date to determine the date of the day after tomorrow. Then, I will use that date to get the weather forecast for Warsaw. Let's start by getting the current date.
+
+Executing tool 'get_current_date'
+Executing tool 'get_current_datetime'
+Response:
+ The current date is 2026-01-21, and the current datetime is 2026-01-21T15:57:11. 
+
+Now, let's get the weather forecast for New York in two months. Two months from January 21, 2026, is April 21, 2026. 
+
+Let me call the `get_weather_forecast` function with the parameters:
+- Country: United States
+- City: New York
+- Date: 2026-04-21
+
+I will return the weather forecast for New York on April 21, 2026.
+ ```
+
+ It was not that easy, because without `You MUST call this tool before request to establish what's current date.` in description. Moreover, it uses 2 tools for date: eg. date and datetime.
+
+
+
+## Exercise 4
+
+Modified `host_server.py` to use `visualization-server` from `exercise4/viz_server.py`.
+
+**Question 1:** `Display a linear function plot for y = 2x for x in range -5 to 5. As tittle use current date. Do not use CODE.`
+
+```md
+Response:
+ <tool_call>
+{"name": "line_plot", "arguments": {"x_data": [-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5], "y_data": [2 * -5, 2 * -4, 2 * -3, 2 * -2, 2 * -1, 2 * 0, 2 * 1, 2 * 2, 2 * 3, 2 * 4, 2 * 5], "title": "2026-01-21", "x_label": "X-axis", "y_label": "Y-axis"}}
+</tool_call>
+```
+
+It is not able to return valid format for the task.
+
+
+
+**Question 2:** `Display a qadratic function plot for y = x^2-4x+4 for x in range -10 to 10. As tittle use current date.`
+
+Note that for that task I had to use larger model (14B), because smaller tried to generate as y_data a python list comprahension `[x**2 for x in x_data]` which caused problems, because instead list of numbers I got str of python code.
+
+However bigger model was able to do it. Plot below.
+
+![Plot Q2](exercise4/bigger_model.png)
